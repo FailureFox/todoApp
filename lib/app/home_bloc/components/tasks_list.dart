@@ -29,8 +29,11 @@ class TasksList extends StatelessWidget {
                   );
                 }
               } else if (state.taskMode == TasksMode.noCompletedtasks) {
+                final now = DateTime.now();
                 if (!task.isCompleted &&
-                    DateTime.now().difference(task.deadLine).inDays > 0) {
+                    now.day > task.deadLine.day &&
+                    now.year >= task.deadLine.year &&
+                    now.month >= task.deadLine.month) {
                   return TaskListItems(
                     tasksModel: state.tasks[index],
                     index: index,
